@@ -24,7 +24,7 @@ const Announcement = conn.define("produtos",{
     },
 });
 
-Announcement.sync({force:true}).then(()=>{
+Announcement.sync({force:false}).then(()=>{
     console.log("A tabela Announcement foi criada com sucesso!");
 }).catch((error)=>{
     console.log(`A tabela Announcement ou já foi criado ou está com o error ${error}`);
