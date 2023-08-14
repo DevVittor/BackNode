@@ -18,7 +18,7 @@ const Product = require("../models/productModel");
     }).catch(err=>console.log(`Deu ruim ${err}`))   
 });*/
 
-Router.get("/products",(req,res)=>{});
+Router.get("/products",(_,__)=>{});
 Router.post("/products/save", (req, res) => {
     let nameProduct = req.body.product;
     Product.create({
