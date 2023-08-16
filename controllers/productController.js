@@ -19,7 +19,7 @@ const Product = require("../models/productModel");
 });*/
 
 Router.get("/products",(_,__)=>{});
-Router.post("/products/save", (req, res) => {
+/*Router.post("/products/save", (req, res) => {
     let nameProduct = req.body.product;
     Product.create({
       product: nameProduct
@@ -29,6 +29,19 @@ Router.post("/products/save", (req, res) => {
       console.error('Erro ao criar produto:', error);
       res.status(500).json({ error: 'Erro ao criar produto' });
     });
+});*/
+
+Router.post("/products/save", async (req, res) => {
+    let nameProduct = req.body.product;
+    try{
+    const criarProdutos = await Product.create({
+      product: nameProduct
+    })
+      res.json(criarProdutos);
+  }catch(error){
+    console.error(`Ocorreu um erro ao criar o produto: ${error}`);
+    res.status(500).json({ error: 'Erro ao criar o produto' });
+  }
 });
 
 module.exports = Router;
