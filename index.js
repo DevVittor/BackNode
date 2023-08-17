@@ -22,6 +22,7 @@ app.get("/products",productController);
 
 app.get("/",indexController);
 app.get("/products",productController);
+app.get("/shop",productController);
 app.post("/products/save",productController);
 app.get("*",error404Controller);
 

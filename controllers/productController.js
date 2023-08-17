@@ -18,29 +18,26 @@ const Product = require("../models/productModel");
     }).catch(err=>console.log(`Deu ruim ${err}`))   
 });*/
 
-Router.get("/products",(_,__)=>{});
-/*Router.post("/products/save", (req, res) => {
-    let nameProduct = req.body.product;
-    Product.create({
-      product: nameProduct
-    }).then(newProduct => {
-      res.status(201).json(newProduct);
-    }).catch(error => {
-      console.error('Erro ao criar produto:', error);
-      res.status(500).json({ error: 'Erro ao criar produto' });
-    });
-});*/
-
 Router.post("/products/save", async (req, res) => {
     let nameProduct = req.body.product;
     try{
-    const criarProdutos = await Product.create({
-      product: nameProduct
+      const criarProdutos = await Product.create({
+        product: nameProduct
     })
       res.json(criarProdutos);
+    }catch(error){
+      console.error(`Ocorreu um erro ao criar o produto: ${error}`);
+      res.status(500).json({ error: 'Erro ao criar o produto' });
+    }
+});
+
+Router.get("/shop", async (req,res)=>{
+  try{
+    const buscarProduct = await Product.findAll();
+    res.json({buscarProduct});
   }catch(error){
-    console.error(`Ocorreu um erro ao criar o produto: ${error}`);
-    res.status(500).json({ error: 'Erro ao criar o produto' });
+    console.error(`Não foi possível buscar nenhum produto devido ao error ${error}`);
+    res.status(500).json({error: 'Error ao buscar Produto'});
   }
 });
 
