@@ -67,15 +67,16 @@ Router.get("/products/:id", async (req, res) => {
     const modelProduct = await Product.findByPk(idProduct);
 
     if (modelProduct) {
-      res.send(modelProduct.product); // Retornar apenas o campo "product" como string
+      res.json({ product: modelProduct.product }); // Retornar objeto JSON com o campo "product"
     } else {
-      res.status(404).send("Produto não encontrado"); // Lidar com caso de produto não encontrado
+      res.status(404).send("Produto não encontrado");
     }
   } catch (error) {
     console.error(`Não foi possível buscar o id ${error}`);
     res.status(500).send("Erro na busca do id");
   }
 });
+
 
 
 module.exports = Router;
