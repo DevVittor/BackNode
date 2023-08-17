@@ -34,11 +34,48 @@ Router.post("/products/save", async (req, res) => {
 Router.get("/shop", async (req,res)=>{
   try{
     const buscarProduct = await Product.findAll();
-    res.json({buscarProduct});
+    res.send({buscarProduct});
   }catch(error){
     console.error(`Não foi possível buscar nenhum produto devido ao error ${error}`);
     res.status(500).json({error: 'Error ao buscar Produto'});
   }
 });
+
+/*Router.get("/products/:id", async (req, res) => {
+  var idProduct = req.params.id;
+  try {
+    const modelProduct = await Product.findOne({
+      where: {
+        id: idProduct,
+      },
+    });
+
+    if (modelProduct) {
+      res.send(modelProduct.product); // Retornar apenas o campo "product" como string
+    } else {
+      res.status(404).send("Produto não encontrado"); // Lidar com caso de produto não encontrado
+    }
+  } catch (error) {
+    console.error(`Não foi possível buscar o id ${error}`);
+    res.status(500).send("Erro na busca do id");
+  }
+});*/
+
+Router.get("/products/:id", async (req, res) => {
+  var idProduct = req.params.id;
+  try {
+    const modelProduct = await Product.findByPk(idProduct);
+
+    if (modelProduct) {
+      res.send(modelProduct.product); // Retornar apenas o campo "product" como string
+    } else {
+      res.status(404).send("Produto não encontrado"); // Lidar com caso de produto não encontrado
+    }
+  } catch (error) {
+    console.error(`Não foi possível buscar o id ${error}`);
+    res.status(500).send("Erro na busca do id");
+  }
+});
+
 
 module.exports = Router;
