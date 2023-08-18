@@ -61,22 +61,31 @@ Router.get("/shop", async (req,res)=>{
   }
 });*/
 
-Router.get("/products/:id", async (req, res) => {
+/*Router.get("/products/:id", async (req, res) => {
   var idProduct = req.params.id;
   try {
     const modelProduct = await Product.findByPk(idProduct);
 
     if (modelProduct) {
-      res.json({ product: modelProduct.product }); // Retornar objeto JSON com o campo "product"
+      res.send(modelProduct.product); // Retornar apenas o campo "product" como string
     } else {
-      res.status(404).send("Produto não encontrado");
+      res.status(404).send("Produto não encontrado"); // Lidar com caso de produto não encontrado
     }
   } catch (error) {
     console.error(`Não foi possível buscar o id ${error}`);
     res.status(500).send("Erro na busca do id");
   }
-});
+});*/
 
+Router.get("/:id", async (req, res) => {
+  var idProduct = req.params.id;
+   try{
+    const modelProduct = await Product.findByPk(idProduct)
+    res.json( modelProduct );
+   }catch(error){
+      console.error(`Deu ruim ${error}`);
+   }
+});
 
 
 module.exports = Router;
