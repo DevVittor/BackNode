@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 const conn = new Sequelize(
-    "NodeBlog","root","mint",{
+    "NodeBlog","root","",{
         host:"localhost",
         dialect:'mysql'
     }
